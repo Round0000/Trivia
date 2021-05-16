@@ -62,6 +62,9 @@ const dbAnswers = {
   "0002": 2,
   "0003": 2,
   "0004": 3,
+  "0005": 0,
+  "0006": 2,
+  "0007": 0,
 };
 
 const qContainer = document.querySelector(".question");
