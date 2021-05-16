@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="score"><span class="scoreText"></span></div>
+        <nav class="nav">
+          <!-- <img src="./img/menu.svg" alt="" /> -->
+        </nav>
+      </header>
+      <div class="questionArea">
+        <div class="question questionQCM">
+          <h1 class="questionTitle"></h1>
+          <form id="questionChoices"></form>
+        </div>
+      </div>
+      <div class="actionsArea">
+        <button class="actionBtn">🔥</button>
+        <button class="actionBtn">💭</button>
+        <button type="submit" form="questionChoices" class="actionBtn">
+          ✅
+        </button>
+      </div>
+    </div>
+    <!--  -->
+    <script src="app.js"></script>
+  </body>
+</html>
