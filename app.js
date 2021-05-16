@@ -25,6 +25,36 @@ const dbQuestions = [
       "Laquelle de ces fleurs est comestible et se déguste généralement en salade?",
     answers: ["Le muguet", "Le laurier-rose", "Le colchique", "La capucine"],
   },
+  {
+    id: "0005",
+    type: "qcm",
+    question: "A quels animaux le terme 'Strigiformes' se rapporte-t-il?",
+    answers: ["Hiboux", "Singes", "Tortues", "Mollusques"],
+  },
+  {
+    id: "0006",
+    type: "qcm",
+    question:
+      "A quel courant artistique rattache-t-on le peintre Edvard Munch?",
+    answers: ["Impressionisme", "Art brut", "Expressionisme", "Symbolisme"],
+  },
+  {
+    id: "0007",
+    type: "qcm",
+    question: "Qui a, en 1830, inventé la tondeuse à gazon?",
+    answers: [
+      "Edwin Beard Budding",
+      "Alexander Graham Bell",
+      "Tim Berners-Lee",
+      "Nikola Tesla",
+    ],
+  },
+  // {
+  //   id: "0008",
+  //   type: "qcm",
+  //   question: "xxxxxxxxxx",
+  //   answers: ["aaaaaaa", "bbbbbbb", "ccccccc", "ddddddd"],
+  // },
 ];
 
 const dbAnswers = {
