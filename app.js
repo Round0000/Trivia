@@ -1,71 +1,96 @@
-const dbQuestions = [
-  {
-    id: "0001",
-    type: "qcm",
-    question: "Quelle est la capitale du Japon?",
-    answers: ["Paris", "Tokyo", "Dakar", "Rio-de-Janeiro"],
-  },
-  {
-    id: "0002",
-    type: "qcm",
-    question:
-      "En quelle année s'est achevée la construction de la Tour Eiffel?",
-    answers: ["1829", "1855", "1887", "1901"],
-  },
-  {
-    id: "0003",
-    type: "qcm",
-    question: "Quelle est l'espérance de vie moyenne d'un moustique commun?",
-    answers: ["12 heures", "3 jours", "7 jours", "2 semaines et demi"],
-  },
-  {
-    id: "0004",
-    type: "qcm",
-    question:
-      "Laquelle de ces fleurs est comestible et se déguste généralement en salade?",
-    answers: ["Le muguet", "Le laurier-rose", "Le colchique", "La capucine"],
-  },
-  {
-    id: "0005",
-    type: "qcm",
-    question: "A quels animaux le terme 'Strigiformes' se rapporte-t-il?",
-    answers: ["Hiboux", "Singes", "Tortues", "Mollusques"],
-  },
-  {
-    id: "0006",
-    type: "qcm",
-    question:
-      "A quel courant artistique rattache-t-on le peintre Edvard Munch?",
-    answers: ["Impressionisme", "Art brut", "Expressionisme", "Symbolisme"],
-  },
-  {
-    id: "0007",
-    type: "qcm",
-    question: "Qui a, en 1830, inventé la tondeuse à gazon?",
-    answers: [
-      "Edwin Beard Budding",
-      "Alexander Graham Bell",
-      "Tim Berners-Lee",
-      "Nikola Tesla",
-    ],
-  },
-  // {
-  //   id: "0008",
-  //   type: "qcm",
-  //   question: "xxxxxxxxxx",
-  //   answers: ["aaaaaaa", "bbbbbbb", "ccccccc", "ddddddd"],
-  // },
-];
+const collection = db.collection("trivia");
+let dbQuestions = [];
 
-const dbAnswers = {
-  "0001": 1,
-  "0002": 2,
-  "0003": 2,
-  "0004": 3,
-  "0005": 0,
-  "0006": 2,
-  "0007": 0,
-};
+async function getCollection() {
+  collection
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const item = doc.data();
+        item.id = doc.id;
+        dbQuestions.push(item);
+      });
+      initGame();
+      dbQuestions = dbQuestions.sort(shuffle);
+      function shuffle(a, b) {
+        return 0.5 - Math.random();
+      }
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
+}
+
+console.log(dbQuestions);
+
+// const dbQuestions = [
+// {
+//   id: "0001",
+//   type: "qcm",
+//   question: "Quelle est la capitale du Japon?",
+//   answers: ["Paris", "Tokyo", "Dakar", "Rio-de-Janeiro"],
+// },
+// {
+//   id: "0002",
+//   type: "qcm",
+//   question:
+//     "En quelle année s'est achevée la construction de la Tour Eiffel?",
+//   answers: ["1829", "1855", "1887", "1901"],
+// },
+// {
+//   id: "0003",
+//   type: "qcm",
+//   question: "Quelle est l'espérance de vie moyenne d'un moustique commun?",
+//   answers: ["12 heures", "3 jours", "7 jours", "2 semaines et demi"],
+// },
+// {
+//   id: "0004",
+//   type: "qcm",
+//   question:
+//     "Laquelle de ces fleurs est comestible et se déguste généralement en salade?",
+//   answers: ["Le muguet", "Le laurier-rose", "Le colchique", "La capucine"],
+// },
+// {
+//   id: "0005",
+//   type: "qcm",
+//   question: "A quels animaux le terme 'Strigiformes' se rapporte-t-il?",
+//   answers: ["Hiboux", "Singes", "Tortues", "Mollusques"],
+// },
+// {
+//   id: "0006",
+//   type: "qcm",
+//   question:
+//     "A quel courant artistique rattache-t-on le peintre Edvard Munch?",
+//   answers: ["Impressionisme", "Art brut", "Expressionisme", "Symbolisme"],
+// },
+// {
+//   id: "0007",
+//   type: "qcm",
+//   question: "Qui a, en 1830, inventé la tondeuse à gazon?",
+//   answers: [
+//     "Edwin Beard Budding",
+//     "Alexander Graham Bell",
+//     "Tim Berners-Lee",
+//     "Nikola Tesla",
+//   ],
+// },
+// {
+//   id: "0008",
+//   type: "qcm",
+//   question: "xxxxxxxxxx",
+//   answers: ["aaaaaaa", "bbbbbbb", "ccccccc", "ddddddd"],
+// },
+// ];
+
+// const dbAnswers = {
+//   "0001": 1,
+//   "0002": 2,
+//   "0003": 2,
+//   "0004": 3,
+//   "0005": 0,
+//   "0006": 2,
+//   "0007": 0,
+// };
 
 const qContainer = document.querySelector(".question");
 const qTitle = document.querySelector(".questionTitle");
@@ -79,6 +104,7 @@ class Question {
     this.type = item.type;
     this.question = item.question;
     this.answers = item.answers;
+    this.index = item.index;
   }
 
   output() {
@@ -103,26 +129,30 @@ class Question {
   }
 
   check(selectedAnswer) {
-    qOptions[dbAnswers[this.id]].classList.add("questionChoiceLabel--correct");
+    qOptions[this.index].classList.add("questionChoiceLabel--correct");
 
-    if (selectedAnswer !== this.answers[dbAnswers[this.id]]) {
+    if (selectedAnswer !== this.answers[this.index]) {
       currentQuestion = false;
     }
 
     setTimeout(() => {
-      currentQuestion = new Question(shuffledDB[questionIndex]);
+      currentQuestion = new Question(dbQuestions[questionIndex]);
       currentQuestion.output();
     }, 2000);
   }
 }
 
-let shuffledDB = dbQuestions.sort(shuffle);
-function shuffle(a, b) {
-  return 0.5 - Math.random();
-}
-
+let currentQuestion;
 let questionIndex = 0;
 
+function initGame() {
+  currentQuestion = new Question(dbQuestions[questionIndex]);
+  currentQuestion.output();
+}
+
+getCollection();
+
+// Answer validation
 qForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -137,12 +167,23 @@ qForm.addEventListener("submit", (e) => {
   }
   e.target.reset();
 
-  if (questionIndex !== shuffledDB.length - 1) {
+  if (questionIndex !== dbQuestions.length - 1) {
     questionIndex += 1;
   } else {
     questionIndex = 0;
   }
 });
 
-let currentQuestion = new Question(shuffledDB[questionIndex]);
-currentQuestion.output();
+// Add new question to DB
+function addToDB(item) {
+  const newID = dbQuestions.length.toString().padStart(4, "0");
+  collection
+    .doc(newID)
+    .set(item)
+    .then((docRef) => {
+      console.log("Document written with ID: ", newID);
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+}
