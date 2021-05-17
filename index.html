@@ -29,6 +29,58 @@
         </button>
       </div>
     </div>
+    
+    <form id="newQuestionForm">
+  <div class="newQuestionTypes">
+    <label for="newQuestionTypeQCM">
+      QCM
+      <input id="newQuestionTypeQCM" name="type" value="qcm" type="radio" required>
+    </label>
+  </div>
+  <label for="newQuestionTitle">
+  Title
+  <input id="newQuestionTitle" name="question" type="text" maxlength="80" required>
+  </label>
+  <div class="newQuestionAnswers">
+    <label for="newQuestionAnswer1">
+    Answer 1
+    <input id="newQuestionAnswer1" name="answer1" type="text" maxlength="50" required>
+  </label>
+  <label for="newQuestionAnswer2">
+    Answer 2
+    <input id="newQuestionAnswer2" name="answer2" type="text" maxlength="50" required>
+  </label>
+  <label for="newQuestionAnswer3">
+    Answer 3
+    <input id="newQuestionAnswer3" name="answer3" type="text" maxlength="50" required>
+  </label>
+  <label for="newQuestionAnswer4">
+    Answer 4
+    <input id="newQuestionAnswer4" name="answer4" type="text" maxlength="50" required>
+  </label>  
+  </div>
+  
+  <div class="newQuestionIndexes">
+    <label for="newQuestionIndex0">
+      1
+      <input id="newQuestionIndex0" name="index" value="0" type="radio" required>
+    </label>
+    <label for="newQuestionIndex1">
+      2
+      <input id="newQuestionIndex1" name="index" value="1" type="radio" required>
+    </label>
+    <label for="newQuestionIndex2">
+      3
+      <input id="newQuestionIndex2" name="index" value="2" type="radio" required>
+    </label>
+    <label for="newQuestionIndex3">
+      4
+      <input id="newQuestionIndex3" name="index" value="3" type="radio" required>
+    </label>
+  </div>
+  
+  <input type="submit">
+</form>
     <!--  -->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
