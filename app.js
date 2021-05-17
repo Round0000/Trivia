@@ -183,7 +183,7 @@ qForm.addEventListener("submit", (e) => {
 
 // Add new question to DB
 function addToDB(item) {
-  const newID = dbQuestions.length.toString().padStart(4, "0");
+  const newID = (dbQuestions.length + 1).toString().padStart(4, "0");
   collection
     .doc(newID)
     .set(item)
