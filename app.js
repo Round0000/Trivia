@@ -97,6 +97,11 @@ const qTitle = document.querySelector(".questionTitle");
 const qForm = document.querySelector("#questionChoices");
 let qOptions;
 const btnSubmit = document.querySelector(".submitBtn");
+const header = document.querySelector(".header");
+
+header.addEventListener('click', e => {
+  newQuestionForm.classList.toggle("d-none");
+});
 
 class Question {
   constructor(item) {
@@ -187,3 +192,21 @@ function addToDB(item) {
       console.error("Error adding document: ", error);
     });
 }
+
+
+
+const newQuestionForm = document.querySelector('#newQuestionForm');
+
+newQuestionForm.addEventListener('submit', e => {
+  e.preventDefault();
+  
+  const newQuestion = {};
+  newQuestion.type = e.target.type.value;
+  newQuestion.question = e.target.question.value;
+  newQuestion.answers = [e.target.answer1.value, e.target.answer2.value, e.target.answer3.value, e.target.answer4.value];
+  newQuestion.index = e.target.index.value;
+  
+  addToDB(newQuestion);
+  
+  e.target.reset();
+})
