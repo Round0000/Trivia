@@ -20,6 +20,10 @@ body,
   height: 100%;
 }
 
+.d-none {
+  display: none !important;
+}
+
 .container {
   background-color: #023047;
   background-image: linear-gradient(#023047, #093949);
@@ -187,7 +191,7 @@ body,
   display: flex;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 50px;
   right: 0;
   bottom: 0;
   flex-direction: column;
