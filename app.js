@@ -10,11 +10,13 @@ async function getCollection() {
         item.id = doc.id;
         dbQuestions.push(item);
       });
-      initGame();
+    
       dbQuestions = dbQuestions.sort(shuffle);
       function shuffle(a, b) {
         return 0.5 - Math.random();
       }
+    
+      initGame();
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
