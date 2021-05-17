@@ -210,5 +210,5 @@ newQuestionForm.addEventListener('submit', e => {
   
   addToDB(newQuestion);
   
-  e.target.reset();
+  document.location.reload();
 })
