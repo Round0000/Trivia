@@ -25,13 +25,6 @@ async function getCollection() {
 
 console.log(dbQuestions);
 
-// const dbQuestions = [
-// {
-//   id: "0001",
-//   type: "qcm",
-//   question: "Quelle est la capitale du Japon?",
-//   answers: ["Paris", "Tokyo", "Dakar", "Rio-de-Janeiro"],
-// },
 // {
 //   id: "0002",
 //   type: "qcm",
@@ -76,13 +69,6 @@ console.log(dbQuestions);
 //     "Nikola Tesla",
 //   ],
 // },
-// {
-//   id: "0008",
-//   type: "qcm",
-//   question: "xxxxxxxxxx",
-//   answers: ["aaaaaaa", "bbbbbbb", "ccccccc", "ddddddd"],
-// },
-// ];
 
 // const dbAnswers = {
 //   "0001": 1,
@@ -140,11 +126,23 @@ class Question {
 
     if (selectedAnswer !== this.answers[this.index]) {
       currentQuestion = false;
+    } else {
+      qContainer.classList.add("question--correct");
     }
 
+    qOptions.forEach((answer) => {
+      if (!answer.classList.contains("questionChoiceLabel--correct")) {
+        answer.classList.add("questionChoiceLabel--faded");
+      }
+    });
+
+    qContainer.classList.add("intouchable");
+
     setTimeout(() => {
+      qContainer.classList.remove("question--correct");
       currentQuestion = new Question(dbQuestions[questionIndex]);
       currentQuestion.output();
+      qContainer.classList.remove("intouchable");
     }, 2000);
   }
 }
