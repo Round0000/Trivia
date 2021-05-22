@@ -230,12 +230,16 @@ body,
   position: absolute;
   width: 100%;
   top: 60px;
+  align-items: center;
   flex-direction: column;
-  max-width: 500px;
-  margin: 0 auto;
   background-color: #222;
   color: #fff;
-  padding: 1em 1.5em;
+  padding: 1em 1.5em 4em;
+}
+
+#newQuestionForm > * {
+  max-width: 500px;
+  min-width: 90%;
 }
 
 #newQuestionForm label {
