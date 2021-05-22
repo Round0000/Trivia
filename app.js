@@ -131,6 +131,7 @@ class Question {
       qContainer.classList.remove("intouchable");
       qActions.classList.remove("intouchable");
       helpModal.innerHTML = "";
+      helpModal.classList.add("d-none");
     }, 2000);
   }
 
