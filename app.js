@@ -176,16 +176,16 @@ newQuestionForm.addEventListener("submit", (e) => {
 
   const newQuestion = {};
   newQuestion.type = e.target.type.value;
-  newQuestion.question = e.target.question.value;
+  newQuestion.question = e.target.question.value.trim();
 
   newQuestion.answers = [
-    e.target.answer1.value,
-    e.target.answer2.value,
-    e.target.answer3.value,
-    e.target.answer4.value,
+    e.target.answer1.value.trim(),
+    e.target.answer2.value.trim(),
+    e.target.answer3.value.trim(),
+    e.target.answer4.value.trim(),
   ];
   newQuestion.index = e.target.index.value;
-  newQuestion.tip = e.target.tip.value;
+  newQuestion.tip = e.target.tip.value.trim();
 
   addToDB(newQuestion);
   console.log(newQuestion);
