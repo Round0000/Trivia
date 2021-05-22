@@ -289,9 +289,10 @@ body,
   font-size: 1rem;
 }
 
-.actionBtn:hover {
-  background-color: #fff;
+.actionBtn:hover,
+.actionBtn:focus {
   cursor: pointer;
+  background-color: #fff3;
 }
 
 /* New Question Form */
