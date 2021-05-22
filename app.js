@@ -11,10 +11,10 @@ async function getCollection() {
         dbQuestions.push(item);
       });
 
-      dbQuestions = dbQuestions.sort(shuffle);
       function shuffle(a, b) {
         return 0.5 - Math.random();
       }
+      dbQuestions = dbQuestions.sort(shuffle);
 
       initGame();
     })
@@ -25,67 +25,32 @@ async function getCollection() {
 
 console.log(dbQuestions);
 
-// {
-//   id: "0002",
-//   type: "qcm",
-//   question:
-//     "En quelle année s'est achevée la construction de la Tour Eiffel?",
-//   answers: ["1829", "1855", "1887", "1901"],
-// },
-// {
-//   id: "0003",
-//   type: "qcm",
-//   question: "Quelle est l'espérance de vie moyenne d'un moustique commun?",
-//   answers: ["12 heures", "3 jours", "7 jours", "2 semaines et demi"],
-// },
-// {
-//   id: "0004",
-//   type: "qcm",
-//   question:
-//     "Laquelle de ces fleurs est comestible et se déguste généralement en salade?",
-//   answers: ["Le muguet", "Le laurier-rose", "Le colchique", "La capucine"],
-// },
-// {
-//   id: "0005",
-//   type: "qcm",
-//   question: "A quels animaux le terme 'Strigiformes' se rapporte-t-il?",
-//   answers: ["Hiboux", "Singes", "Tortues", "Mollusques"],
-// },
-// {
-//   id: "0006",
-//   type: "qcm",
-//   question:
-//     "A quel courant artistique rattache-t-on le peintre Edvard Munch?",
-//   answers: ["Impressionisme", "Art brut", "Expressionisme", "Symbolisme"],
-// },
-// {
-//   id: "0007",
-//   type: "qcm",
-//   question: "Qui a, en 1830, inventé la tondeuse à gazon?",
-//   answers: [
-//     "Edwin Beard Budding",
-//     "Alexander Graham Bell",
-//     "Tim Berners-Lee",
-//     "Nikola Tesla",
-//   ],
-// },
-
-// const dbAnswers = {
-//   "0001": 1,
-//   "0002": 2,
-//   "0003": 2,
-//   "0004": 3,
-//   "0005": 0,
-//   "0006": 2,
-//   "0007": 0,
-// };
-
 const qContainer = document.querySelector(".question");
 const qTitle = document.querySelector(".questionTitle");
 const qForm = document.querySelector("#questionChoices");
 let qOptions;
+
 const btnSubmit = document.querySelector(".submitBtn");
 const header = document.querySelector(".header");
+
+const btnHelp = document.querySelector("#btnHelp");
+const helpModal = document.querySelector("#helpModal");
+
+btnHelp.addEventListener("click", (e) => {
+  helpModal.classList.toggle("d-none");
+
+  const helpModalContent = `
+  <h2 id="helpModalQuestion">${currentQuestion.question}</h2>
+  <button>Utiliser 5 points pour obtenir un conseil</button>
+  <p id="helpMessage" class="messageHidden"></p>`;
+  helpModal.innerHTML = helpModalContent;
+
+  const btnUseHelp = document.querySelector("#helpModal button");
+
+  btnUseHelp.addEventListener("click", (e) => {
+    currentQuestion.help();
+  });
+});
 
 header.addEventListener("click", (e) => {
   newQuestionForm.classList.toggle("d-none");
@@ -98,6 +63,7 @@ class Question {
     this.question = item.question;
     this.answers = item.answers;
     this.index = item.index;
+    this.tip = item.tip;
   }
 
   output() {
@@ -143,10 +109,20 @@ class Question {
       currentQuestion = new Question(dbQuestions[questionIndex]);
       currentQuestion.output();
       qContainer.classList.remove("intouchable");
+      helpModal.innerHTML = "";
     }, 2000);
+  }
+
+  help() {
+    const message = document.querySelector("#helpMessage");
+    message.classList.remove("messageHidden");
+    setTimeout(() => {
+      message.innerText = this.tip;
+    }, 500);
   }
 }
 
+// Game init
 let currentQuestion;
 let questionIndex = 0;
 
@@ -201,6 +177,7 @@ newQuestionForm.addEventListener("submit", (e) => {
   const newQuestion = {};
   newQuestion.type = e.target.type.value;
   newQuestion.question = e.target.question.value;
+
   newQuestion.answers = [
     e.target.answer1.value,
     e.target.answer2.value,
@@ -208,8 +185,10 @@ newQuestionForm.addEventListener("submit", (e) => {
     e.target.answer4.value,
   ];
   newQuestion.index = e.target.index.value;
+  newQuestion.tip = e.target.tip.value;
 
   addToDB(newQuestion);
+  console.log(newQuestion);
 
   document.location.reload();
 });

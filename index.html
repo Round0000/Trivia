@@ -17,13 +17,14 @@
       </header>
       <div class="questionArea">
         <div class="question questionQCM">
+          <div id="helpModal" class="d-none"></div>
           <h1 class="questionTitle"></h1>
           <form id="questionChoices"></form>
         </div>
       </div>
       <div class="actionsArea">
         <button class="actionBtn">🔥</button>
-        <button class="actionBtn">💭</button>
+        <button id="btnHelp" class="actionBtn">💭</button>
         <button type="submit" form="questionChoices" class="actionBtn">
           ✅
         </button>
@@ -54,6 +55,7 @@
           required
         />
       </label>
+
       <div class="newQuestionAnswers">
         <label for="newQuestionAnswer1">
           Answer 1
@@ -139,12 +141,25 @@
           />
         </label>
       </div>
+      <label for="newQuestionTip">
+        Tip
+        <textarea
+          id="newQuestionTip"
+          name="tip"
+          type="text"
+          maxlength="200"
+          cols="30"
+          rows="4"
+          required
+        ></textarea>
+      </label>
 
       <input type="submit" />
     </form>
 
-    <!-- New Question Form -->
-    <!--  -->
+    <!-- Help Modal -->
+
+    <!-- FIREBASE -->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-firestore.js"></script>

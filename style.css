@@ -100,7 +100,7 @@ body,
   font-weight: 600;
   left: 0;
   top: 0;
-  transform: scaleX(0);
+  transform: translateY(-2em);
   transition: all 0.3s;
   background-color: hsl(76, 100%, 50%);
   border-bottom: 2px solid #0003;
@@ -111,15 +111,13 @@ body,
 }
 
 .question--correct::before {
-  transform: scaleX(1);
+  transform: initial;
   color: #222d;
 }
 
 .questionTitle {
-  line-height: 1.1;
+  line-height: 1.2;
   font-size: 1.5rem;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
   flex: 1;
   display: flex;
   align-items: center;
@@ -230,14 +228,9 @@ body,
   z-index: 99;
   display: flex;
   position: absolute;
-  left: 0;
-  top: 80px;
-  right: 0;
-  bottom: 0;
-  flex-direction: column;
   width: 100%;
-  height: calc(100% - 100px);
-  max-height: 720px;
+  top: 60px;
+  flex-direction: column;
   max-width: 500px;
   margin: 0 auto;
   background-color: #222;
@@ -254,7 +247,8 @@ body,
   margin-top: 1em;
 }
 
-#newQuestionForm label input {
+#newQuestionForm label input,
+#newQuestionForm label textarea {
   display: block;
   margin-top: 0.2em;
   padding: 0.5em;
@@ -281,4 +275,59 @@ body,
   width: 10em;
   margin: 3em auto 0;
   padding: 0.5em;
+}
+
+/* Help Modal */
+#helpModal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 55;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#helpModalQuestion {
+  line-height: 1.2;
+  font-size: 1.5rem;
+  flex: 0 1 40%;
+  display: flex;
+  align-items: center;
+}
+
+#helpModal button {
+  all: unset;
+  padding: 1em;
+  border: 1px solid #2225;
+  font-size: 1.25rem;
+  border-radius: 5px;
+  background-color: hsl(49, 100%, 72%);
+  box-shadow: 0 2px 3px #2225;
+}
+
+#helpModal button:hover,
+#helpModal button:focus {
+  background-color: hsl(49, 100%, 64%);
+}
+
+#helpModal button:focus-visible {
+  outline: 2px solid #222;
+  outline-offset: 5px;
+}
+
+#helpMessage {
+  font-size: 1.25rem;
+  background-color: hsl(49, 100%, 90%);
+  padding: 2em 1em;
+  flex: 1;
+  transition: all 0.5s;
+  transform-origin: top;
+}
+
+.messageHidden {
+  transform: scaleY(0);
 }
