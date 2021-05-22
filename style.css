@@ -1,3 +1,31 @@
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("./fonts/Atkinson-Hyperlegible-Regular-102a.woff2") format("woff2"),
+    url("./fonts/Atkinson-Hyperlegible-Regular-102.woff") format("woff"),
+    url("./fonts/Atkinson-Hyperlegible-Regular-102.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("./fonts/Atkinson-Hyperlegible-Bold-102a.woff2") format("woff2"),
+    url("./fonts/Atkinson-Hyperlegible-Bold-102.woff") format("woff"),
+    url("./fonts/Atkinson-Hyperlegible-Bold-102.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("./fonts/Atkinson-Hyperlegible-Italic-102a.woff2") format("woff2"),
+    url("./fonts/Atkinson-Hyperlegible-Italic-102.woff") format("woff"),
+    url("./fonts/Atkinson-Hyperlegible-Italic-102.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -7,7 +35,7 @@
 }
 
 body {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
 }
 
 ul {
@@ -59,6 +87,41 @@ body,
   justify-content: center;
   align-items: center;
   font-size: 1.25rem;
+}
+
+.scoreText {
+  margin: 0 0.2em;
+  padding-top: 0.1em;
+  transform: translateY(-0.05em);
+  width: 1.8em;
+  height: 1.6em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fff;
+  border-left: none;
+  border-right: none;
+}
+
+.anim-score-up {
+  animation: score-up 0.5s forwards;
+}
+.anim-score-down {
+  animation: score-down 0.5s forwards;
+}
+
+@keyframes score-up {
+  0% {
+    color: hsl(76, 100%, 50%);
+    border-color: hsl(76, 100%, 50%);
+  }
+}
+
+@keyframes score-down {
+  0% {
+    color: hsl(17, 100%, 60%);
+    border-color: hsl(17, 100%, 60%);
+  }
 }
 
 .nav img {
@@ -146,6 +209,7 @@ body,
   transition: all 0.2s;
   outline: 3px solid transparent;
   outline-offset: -3px;
+  cursor: pointer;
 }
 
 .questionChoiceLabel::before {
@@ -206,15 +270,23 @@ body,
 .actionBtn {
   all: unset;
   display: flex;
+  flex-direction: column;
   flex: 1;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 1.25rem;
   width: 52px;
   height: 64px;
   padding: 4px;
   background-color: #fff1;
   outline: 1px solid #fff5;
+  color: #fff;
+}
+
+.actionBtn span {
+  display: block;
+  margin-top: 0.3em;
+  font-size: 1rem;
 }
 
 .actionBtn:hover {
@@ -311,6 +383,7 @@ body,
   border-radius: 5px;
   background-color: hsl(49, 100%, 72%);
   box-shadow: 0 2px 3px #2225;
+  cursor: pointer;
 }
 
 #helpModal button:hover,

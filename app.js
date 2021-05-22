@@ -25,13 +25,18 @@ async function getCollection() {
 
 console.log(dbQuestions);
 
+const header = document.querySelector(".header");
+const scoreText = document.querySelector(".scoreText");
+
+let score = 0;
+
 const qContainer = document.querySelector(".question");
 const qTitle = document.querySelector(".questionTitle");
 const qForm = document.querySelector("#questionChoices");
+const qActions = document.querySelector(".actionsArea");
 let qOptions;
 
 const btnSubmit = document.querySelector(".submitBtn");
-const header = document.querySelector(".header");
 
 const btnHelp = document.querySelector("#btnHelp");
 const helpModal = document.querySelector("#helpModal");
@@ -92,9 +97,23 @@ class Question {
 
     if (selectedAnswer !== this.answers[this.index]) {
       currentQuestion = false;
+      if (score > 0) {
+        score -= 1;
+      }
+      scoreText.classList.add("anim-score-down");
+      setTimeout(() => {
+        scoreText.classList.remove("anim-score-down");
+      }, 500);
     } else {
       qContainer.classList.add("question--correct");
+      score += 1;
+      scoreText.classList.add("anim-score-up");
+      setTimeout(() => {
+        scoreText.classList.remove("anim-score-up");
+      }, 500);
     }
+
+    scoreText.innerText = score;
 
     qOptions.forEach((answer) => {
       if (!answer.classList.contains("questionChoiceLabel--correct")) {
@@ -103,22 +122,30 @@ class Question {
     });
 
     qContainer.classList.add("intouchable");
+    qActions.classList.add("intouchable");
 
     setTimeout(() => {
       qContainer.classList.remove("question--correct");
       currentQuestion = new Question(dbQuestions[questionIndex]);
       currentQuestion.output();
       qContainer.classList.remove("intouchable");
+      qActions.classList.remove("intouchable");
       helpModal.innerHTML = "";
     }, 2000);
   }
 
   help() {
-    const message = document.querySelector("#helpMessage");
-    message.classList.remove("messageHidden");
-    setTimeout(() => {
-      message.innerText = this.tip;
-    }, 500);
+    if (score >= 5) {
+      score -= 5;
+      scoreText.innerText = score;
+      const message = document.querySelector("#helpMessage");
+      message.classList.remove("messageHidden");
+      setTimeout(() => {
+        message.innerText = this.tip;
+      }, 500);
+    } else {
+      console.log("not enough points");
+    }
   }
 }
 
@@ -127,6 +154,7 @@ let currentQuestion;
 let questionIndex = 0;
 
 function initGame() {
+  scoreText.innerText = score;
   currentQuestion = new Question(dbQuestions[questionIndex]);
   currentQuestion.output();
 }
